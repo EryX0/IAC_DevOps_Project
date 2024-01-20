@@ -1,0 +1,17 @@
+{
+    "default-address-pools": [
+        {"base": "172.99.0.0/16", "size": 24}
+    ],
+
+    "registry-mirrors": ["https://hub.hamdocker.ir"],
+    "insecure-registries": ["https://hub.hamdocker.ir"],
+
+    "data-root": "/mnt/data",
+
+    "log-driver": "json-file",
+    "log-level": "info",
+    "log-opts": {
+        "max-file": "5",
+        "max-size": "10m"
+    }
+}

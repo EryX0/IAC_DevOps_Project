@@ -1,0 +1,29 @@
+- name: ensure docker is installed
+  become: true
+  apt:
+    name: docker.io
+    state: latest
+      
+- name: ensure docker-compose is installed
+  become: true
+  apt:
+    update_cache: true
+    name: docker-compose
+    state: present
+  notify: Restart docker
+
+- name: Added user to docker group
+  become: true
+  user:
+    name: vagrant
+    groups: docker
+
+- name: daemon config
+  become: true
+  copy:
+    src: files/daemon.json
+    dest: /etc/docker/daemon.json
+    owner: root
+    group: root
+    mode: '644'
+  notify: Restart docker
