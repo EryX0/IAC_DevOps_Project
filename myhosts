@@ -1,5 +1,5 @@
 [test]
-138.197.178.226
+ip
 [test:vars]
 ansible_ssh_user=root
 
