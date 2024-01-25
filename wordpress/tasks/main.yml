@@ -8,7 +8,7 @@
   ansible.builtin.file:
     path: ~/ansible_agent/docker_volumes
     state: directory
-    mode: '0644'
+    mode: '0664'
 
 - name: Synchronize the entire directory to the server
   ansible.posix.synchronize:
