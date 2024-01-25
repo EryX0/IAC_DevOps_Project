@@ -1,4 +1,5 @@
-- name: Play 
-  hosts: nodes
+- name: Play
+  hosts: test
   roles:
-    - docker
+    # - docker
+    - wordpress
