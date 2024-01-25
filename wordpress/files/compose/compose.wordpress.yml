@@ -39,12 +39,11 @@ services:
     ports:
       - 80:80
     volumes:
-      - ../nginx_config/:/etc/nginx/conf.d/
+      - ../nginx:/etc/nginx/conf.d/
 
 networks:
   app_network:
   web_network:
-
 
 volumes:
   wordpress:

@@ -1,17 +1,17 @@
 - name: Make sure the directory exists
   ansible.builtin.file:
-    path: ~/ansible_agent/wordpress
+    path: ~/ansible_agent/wordpress/files
     state: directory
-    mode: '0755'
+    mode: '0644'
 
 - name: Synchronize the entire directory to the server
   ansible.posix.synchronize:
-    src: ./wordpress/
-    dest: ~/ansible_agent/wordpress
+    src: ../files/
+    dest: ~/ansible_agent/wordpress/files
 
 - name: Make sure containers aren't running
   community.docker.docker_compose:
-    project_src: ~/ansible_agent/wordpress/compose
+    project_src: ~/ansible_agent/wordpress/files/compose/
     files:
       - compose.wordpress.yml
     state: absent
@@ -25,7 +25,7 @@
 
 - name: Create and start Docker Compose containers
   community.docker.docker_compose:
-    project_src: /root/ansible_agent/wordpress/compose
+    project_src: ~/ansible_agent/wordpress/files/compose/
     files:
       - compose.wordpress.yml
   register: output
@@ -33,6 +33,6 @@
 - name: Ensure the containers are running
   community.docker.docker_compose:
     state: present
-    project_src: ~/ansible_agent/wordpress/compose/
+    project_src: ~/ansible_agent/wordpress/files/compose/
     files:
       - compose.wordpress.yml
