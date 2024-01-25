@@ -1,6 +1,12 @@
-- name: Make sure the directory exists
+- name: Make sure the files directory exists
   ansible.builtin.file:
     path: ~/ansible_agent/wordpress/files
+    state: directory
+    mode: '0644'
+
+- name: Make sure the volumes directory exists
+  ansible.builtin.file:
+    path: ~/ansible_agent/docker_volumes
     state: directory
     mode: '0644'
 

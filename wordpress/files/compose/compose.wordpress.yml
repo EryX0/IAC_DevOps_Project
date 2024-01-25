@@ -16,7 +16,7 @@ services:
       WORDPRESS_DB_PASSWORD: examplepass
       WORDPRESS_DB_NAME: exampledb
     volumes:
-      - wordpress:/var/www/html
+      - ~/ansible_agent/docker_volumes/wordpress:/var/www/html
 
   db:
     image: mysql:8.0
@@ -29,7 +29,7 @@ services:
       MYSQL_PASSWORD: examplepass
       MYSQL_RANDOM_ROOT_PASSWORD: '1'
     volumes:
-      - db:/var/lib/mysql
+      - ~/ansible_agent/docker_volumes/mysql:/var/lib/mysql
 
   nginx:
     image: nginx:1.24.0-alpine3.17-slim
