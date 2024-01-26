@@ -1,0 +1,25 @@
+- name: Ensure directories exists
+  file:
+    dest: "{{ item }}"
+    state: directory
+    mode: '0644'
+  loop:
+    - ~/compose
+    - ~/compose/registry
+
+- name: Ensure docker-compose files registerd
+  template:
+    src: "{{ item }}"
+    dest: ~/compose/registry/
+    mode: '0644'
+  loop:
+    - compose.registry.yml
+    - conf.yml
+    - htpasswd
+
+- name: Ensure registry compose file is up
+  community.docker.docker_compose:
+    state: present
+    project_src: ~/compose/registry/
+    files:
+      - compose.registry.yml
