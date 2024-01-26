@@ -5,11 +5,30 @@
     lock_timeout: 300
     name: 
       - docker.io
-      - docker-compose
     state: latest
     update_cache: true
     allow_unauthenticated: true
   notify: Restart docker
+
+- name: Get latest version info
+  uri:
+    url: https://api.github.com/repos/docker/compose/releases/latest
+    body_format: json
+    return_content: true
+    validate_certs: false
+  register: uri_output
+  failed_when: uri_output.json.tag_name is undefined
+
+- name: Print the docker compose latest version info when defined
+  debug:
+    msg: Output is {{ uri_output.json.tag_name }}
+  when: uri_output.json.tag_name is defined
+
+- name: Install docker-compose
+  get_url:
+    url: https://github.com/docker/compose/releases/download/{{ uri_output.json.tag_name }}/docker-compose-Linux-x86_64
+    dest: /usr/local/bin/docker-compose
+    mode: '755'
 
 - name: Added user to docker group
   become: true
