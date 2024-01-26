@@ -1,0 +1,18 @@
+services:
+  nginx:
+    container_name: nginx_container
+    image: nginx:1.24.0-alpine3.17-slim
+    restart: always
+    networks:
+      - wp_web_network
+      - registry_registry
+    ports:
+      - 80:80
+    volumes:
+      - ../config/:/etc/nginx/conf.d/
+
+networks:
+  wp_web_network:
+    external: true
+  registry_registry:
+    external: true

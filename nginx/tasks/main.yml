@@ -1,0 +1,21 @@
+- name: Make sure the nginx files directory exists
+  ansible.builtin.file:
+    path: ~/ansible_agent/nginx/files/
+    state: directory
+    mode: '0644'
+
+- name: copy the nginx files directory to the server
+  ansible.builtin.copy:
+    src: ../files/
+    dest: ~/ansible_agent/nginx/files/
+    owner: root
+    group: root
+    mode: '744'
+
+- name: Create and start nginx container
+  community.docker.docker_compose:
+    project_name: nginx
+    state: present
+    project_src: ~/ansible_agent/nginx/files/compose/
+    files:
+      - compose.nginx.yml
