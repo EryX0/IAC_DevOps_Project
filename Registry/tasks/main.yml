@@ -4,13 +4,13 @@
     state: directory
     mode: '0644'
   loop:
-    - ~/compose
-    - ~/compose/registry
+    - ~/ansible_agent/registry/compose
+    - ~/ansible_agent/registry/compose/registry
 
 - name: Ensure docker-compose files registerd
   template:
     src: "{{ item }}"
-    dest: ~/compose/registry/
+    dest: ~/ansible_agent/registry/compose/registry/
     mode: '0644'
   loop:
     - compose.registry.yml
@@ -21,6 +21,6 @@
   community.docker.docker_compose:
     project_name: registry
     state: present
-    project_src: ~/compose/registry/
+    project_src: ~/ansible_agent/registry/compose/registry/
     files:
       - compose.registry.yml

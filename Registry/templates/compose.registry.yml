@@ -6,7 +6,7 @@ services:
       - 127.0.0.1:5000:5000
     container_name: registry-server
     volumes:
-      - registry_data:/var/lib/registry
+      - ~/ansible_agent/docker_volumes/registry:/var/lib/registry
       - ./conf.yml:/etc/docker/registry/conf.yml
       - ./htpasswd:/etc/docker/registry/htpasswd
     networks:

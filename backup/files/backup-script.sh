@@ -14,3 +14,6 @@ tar -czvf "$backup_dir/wordpress_backup_${date_time}.tar.gz" ~/ansible_agent/doc
 
 # Backup MySQL
 docker exec -t mysql_container sh -c 'exec mysqldump -u"$MYSQL_USER" -p"$MYSQL_PASSWORD" --all-databases' | gzip > "$backup_dir/mysql_backup_${date_time}.sql.gz"
+
+# Backup Registry with volume mount : ~/ansible_agent/docker_volumes/registry
+tar -czvf "$backup_dir/registry_backup_${date_time}.tar.gz" ~/ansible_agent/docker_volumes/registry/

@@ -24,7 +24,7 @@
   
 - name: Add backup script to crontab
   ansible.builtin.cron:
-    name: backup docker volumes of wordpress and mysql
+    name: backup docker volumes of wordpress and mysql and registry
     minute: "0"
     hour: "2"
     user: root
