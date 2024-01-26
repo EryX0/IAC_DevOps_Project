@@ -24,3 +24,30 @@
     project_src: ~/ansible_agent/registry/compose/registry/
     files:
       - compose.registry.yml
+
+- name: pull images from docker hub
+  ansible.builtin.shell: docker pull {{ item }}
+  loop:
+    - nginx:1.24.0-alpine3.17-slim
+    - wordpress:6.4.2
+    - mysql:8.0
+  
+- name: login to registry
+  docker_login:
+    registry_url: localhost:5000
+    username: htpasswd    #secure af
+    password: htpasswd    #secure af trust me bro
+
+- name: tag images
+  ansible.builtin.shell: docker tag {{ item }} localhost:5000/{{ item }}
+  loop:
+    - nginx:1.24.0-alpine3.17-slim
+    - wordpress:6.4.2
+    - mysql:8.0
+
+- name: push images to registry
+  ansible.builtin.shell: docker push {{ item }}
+  loop:
+    - localhost:5000/nginx:1.24.0-alpine3.17-slim
+    - localhost:5000/wordpress:6.4.2
+    - localhost:5000/mysql:8.0

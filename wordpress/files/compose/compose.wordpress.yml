@@ -1,7 +1,7 @@
 services:
   wordpress:
     container_name: wordpress_container
-    image: wordpress
+    image: localhost:5000/wordpress:6.4.2
     restart: always
     networks:
       - web_network
@@ -23,7 +23,7 @@ services:
 
   db:
     container_name: mysql_container
-    image: mysql:8.0
+    image: localhost:5000/mysql:8.0
     restart: always
     networks:
       - app_network
