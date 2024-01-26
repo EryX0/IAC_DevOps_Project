@@ -19,6 +19,7 @@
 
 - name: Ensure registry compose file is up
   community.docker.docker_compose:
+    project_name: registry
     state: present
     project_src: ~/compose/registry/
     files:

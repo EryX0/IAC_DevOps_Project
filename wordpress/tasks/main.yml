@@ -10,10 +10,13 @@
     state: directory
     mode: '0664'
 
-- name: Synchronize the entire directory to the server
-  ansible.posix.synchronize:
+- name: copy the files directory to the server
+  ansible.builtin.copy:
     src: ../files/
     dest: ~/ansible_agent/wordpress/files
+    owner: root
+    group: root
+    mode: '744'
 
 - name: Make sure containers aren't running
   community.docker.docker_compose:
@@ -22,22 +25,9 @@
       - compose.wordpress.yml
     state: absent
 
-- name: Make sure nothing is running on port 80, if it is, give error with process name and exit role
-  ansible.builtin.shell: |
-    if [[ $(netstat -tulpn | grep 80) ]]; then
-      echo "Something is running on port 80, please stop it and try again"
-      exit 1
-    fi
-
-- name: Create and start Docker Compose containers
+- name: Create and start wordpress containers
   community.docker.docker_compose:
-    project_src: ~/ansible_agent/wordpress/files/compose/
-    files:
-      - compose.wordpress.yml
-  register: output
-
-- name: Ensure the containers are running
-  community.docker.docker_compose:
+    project_name: wp
     state: present
     project_src: ~/ansible_agent/wordpress/files/compose/
     files:
