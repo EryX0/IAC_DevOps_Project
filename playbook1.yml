@@ -1,5 +1,7 @@
 - name: Play
   hosts: test
   roles:
-    # - docker
-    - wordpress
+    - docker
+    - registry
+    # - wordpress
+    # - backup

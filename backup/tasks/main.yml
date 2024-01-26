@@ -1,0 +1,31 @@
+---
+- name: remove any existing backup script
+  ansible.builtin.file:
+    path: ~/ansible_agent/backup/files/backup-script.sh
+    state: absent
+
+- name: Make sure the files directory exists
+  ansible.builtin.file:
+    path: ~/ansible_agent/backup/files/
+    state: directory
+    mode: '0744'
+
+- name: Make sure the daily backup directory exists
+  ansible.builtin.file:
+    path: ~/ansible_agent/backup/daily/
+    state: directory
+    mode: '0744'
+
+- name: Copy backup script
+  copy:
+    src: backup-script.sh
+    dest: ~/ansible_agent/backup/files/backup-script.sh
+    mode: '0755'
+  
+- name: Add backup script to crontab
+  ansible.builtin.cron:
+    name: backup docker volumes of wordpress and mysql
+    minute: "0"
+    hour: "2"
+    user: root
+    job: "~/ansible_agent/backup/files/backup-script.sh > /dev/null 2>&1"
