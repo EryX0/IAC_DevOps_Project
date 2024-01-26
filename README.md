@@ -17,7 +17,7 @@ ansible-galaxy install -r requirements.yml
 ## Run
 Add ssh config host name to `myhosts`
 ```
-ansible-playbook -i myhost -K playbook.yml
+ansible-playbook -i myhosts -K playbook.yml
 ```
 
 ## Registry
