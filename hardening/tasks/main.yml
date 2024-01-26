@@ -1,0 +1,45 @@
+
+- name: configure | default (incoming) policy
+  ufw:
+    policy: "{{ ufw_default_incoming_policy }}"
+    direction: incoming
+  notify: reload ufw
+
+- name: configure | default (outgoing) policy
+  ufw:
+    policy: "{{ ufw_default_outgoing_policy }}"
+    direction: outgoing
+  notify: reload ufw
+
+- name: configure | update configuration file(s)
+  template:
+    src: ufw.j2
+    dest: /etc/default/ufw
+    owner: root
+    group: root
+    mode: 0644
+
+- name: configure | rules
+  ufw:
+    rule: "{{ item.rule }}"
+    direction: "{{ item.direction | default('in') }}"
+    to_port: "{{ item.to_port | default('') }}"
+    protocol: "{{ item.protocol | default('any') }}"
+  with_items: "{{ ufw_rules }}"
+  notify: reload ufw
+
+- name: configure | logging
+  ufw:
+    logging: "{{ ufw_logging }}"
+  notify: reload ufw
+
+- name: enabling ufw
+  ufw:
+    state: enabled
+
+- name: Disable password authentication
+  lineinfile:
+    dest: /etc/ssh/sshd_config
+    regexp: "^#?PasswordAuthentication"
+    line: "PasswordAuthentication no"
+    state: present
