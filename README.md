@@ -2,11 +2,11 @@
 -
 
 ## Roles
-- [x] Docker
 - [x] Hardening
+- [x] Docker
 - [x] Registry
-- [x] NGINX
 - [x] WordPress
+- [x] NGINX
 - [x] Backup
 
 ## Setup
@@ -27,3 +27,4 @@ docker login 127.0.0.1:5000
 docker tag mysql:5.8 127.0.0.1:5000/mysql:5.8
 docker push mysql:5.8 127.0.0.1:5000/mysql:5.8
 ```
+
