@@ -1,15 +1,14 @@
-- name: ensure docker is installed
+---
+- name: ensure docker and docker-compose are installed
   become: true
   apt:
-    name: docker.io
+    lock_timeout: 300
+    name: 
+      - docker.io
+      - docker-compose
     state: latest
-      
-- name: ensure docker-compose is installed
-  become: true
-  apt:
     update_cache: true
-    name: docker-compose
-    state: present
+    allow_unauthenticated: true
   notify: Restart docker
 
 - name: Added user to docker group
