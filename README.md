@@ -1,5 +1,5 @@
 # IAC_DevOps_Project
--
+Ansible Project to Harden, Install Docker and private registry, Deploy WordPress, NginX reverse proxy and also a backup script to backup important data periodically.  
 
 ## Roles
 - [x] Hardening
@@ -9,22 +9,37 @@
 - [x] NGINX
 - [x] Backup
 
-## Setup
+## Requirements
+```
+Python 3.8 and up
+Ansible 2.10.0 and up
+```
+
+## Setup and dependencies
+installing ansible module dependencies
 ```
 ansible-galaxy install -r requirements.yml
 ```
 
 ## Run
-Add ssh config host name to `myhosts`
+Add ssh config host name to `myhosts` and change ```ssh_key_path = YOUR_PATH``` in ansible.cfg to connect to the remote servers.
 ```
 ansible-playbook -i myhosts -K playbook.yml
 ```
 
-## Registry
-push and pull images :
-```
-docker login 127.0.0.1:5000
-docker tag mysql:5.8 127.0.0.1:5000/mysql:5.8
-docker push mysql:5.8 127.0.0.1:5000/mysql:5.8
-```
+## Links
 
+WordPress:
+
+http://138.197.178.226/
+
+Registry UI:
+
+http://138.197.178.226/registry
+
+
+## Location of important directories on the server
+
+main dir: ```~/ansible_agent```
+
+Backup dir: ```~/ansible_agent/backup/daily```
