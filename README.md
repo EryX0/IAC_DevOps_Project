@@ -27,17 +27,6 @@ Add ssh config host name to `myhosts` and change ```ssh_key_path = YOUR_PATH``` 
 ansible-playbook -i myhosts -K playbook.yml
 ```
 
-## Links
-
-WordPress:
-
-http://138.197.178.226/
-
-Registry UI:
-
-http://138.197.178.226/registry
-
-
 ## Location of important directories on the server
 
 main dir: ```~/ansible_agent```
